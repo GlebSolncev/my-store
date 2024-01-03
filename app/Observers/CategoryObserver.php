@@ -9,7 +9,8 @@ class CategoryObserver
 {
     public function creating(Category $category)
     {
-        $category->setAttribute('slug',
+        $category->setAttribute(
+            'slug',
             Str::slug($category->getAttribute('title'))
         );
     }

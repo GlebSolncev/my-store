@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\MoonShine\Pages;
 
 use App\Models\Characteristic;
+use App\MoonShine\Resources\ProductParamResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Relationships\HasMany;
+use MoonShine\Fields\Relationships\HasOne;
 use MoonShine\Fields\StackFields;
 use MoonShine\Fields\Switcher;
 use MoonShine\Fields\Text;
@@ -30,9 +32,7 @@ class CharacteristicPage extends ModelResource
 
     public function breadcrumbs(): array
     {
-        return [
-            '#' => $this->title(),
-        ];
+        return ['Фильтр', $this->title()];
     }
 
     public function fields(): array
@@ -41,37 +41,34 @@ class CharacteristicPage extends ModelResource
             Block::make('', [
                 ID::make()->sortable()->showOnExport(),
 
-                StackFields::make('Title')->fields([
-                    Text::make(__('moonshine::ui.resource.role_name'), 'title')
-                        ->required()
-                        ->useOnImport()
-                        ->showOnExport(),
-                ]),
+                Text::make('Наименование', 'title')
+                    ->required()
+                    ->useOnImport()
+                    ->showOnExport(),
 
                 Switcher::make('Отображение', 'is_active')
                     ->useOnImport()->showOnExport(),
                 Switcher::make('Отображение', 'is_filter')
                     ->useOnImport()->showOnExport(),
 
-                Text::make('Количество параметров', 'params', function($item){
-                    return $item->params()->count();
-                }),
-                HasMany::make('Count params', 'params', resource: new ParamPage())
+                HasMany::make('Параметры', 'params', resource: new ParamPage)
                     ->fields([
                         StackFields::make('Title')->fields([
                             Text::make(__('moonshine::ui.resource.role_name'), 'title')
                                 ->required()
                                 ->useOnImport()
                                 ->showOnExport(),
-                        ])
-                    ])->limit(5)
+                        ]),
+                    ])->onlyLink('character'),
             ]),
         ];
     }
 
     public function filters(): array
     {
-        return [];
+        return [
+            Text::make('Наименование', 'title')
+        ];
     }
 
     /**

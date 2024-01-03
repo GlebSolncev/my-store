@@ -42,14 +42,14 @@ class CategoryPage extends ModelResource
             Block::make('', [
                 ID::make()->sortable()->showOnExport(),
 
-                StackFields::make('Title')->fields([
+                StackFields::make('Наименование')->fields([
                     Text::make(__('moonshine::ui.resource.role_name'), 'title')
                         ->required()
                         ->useOnImport()
                         ->showOnExport(),
                 ]),
 
-                BelongsTo::make('Базовая категория', 'parent', resource: new CategoryPage()),
+                BelongsTo::make('Базовая категория', 'parent', resource: new CategoryPage),
                 Switcher::make('Отображение', 'is_active')
                     ->useOnImport()->showOnExport(),
                 Switcher::make('Это категория?', 'is_category')
@@ -62,7 +62,7 @@ class CategoryPage extends ModelResource
     public function filters(): array
     {
         return [
-            BelongsTo::make('Базовая категория', 'parent', resource: new CategoryPage())->searchable(),
+            BelongsTo::make('Базовая категория', 'parent', resource: new CategoryPage)->searchable(),
         ];
     }
 

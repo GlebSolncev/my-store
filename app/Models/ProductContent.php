@@ -12,13 +12,14 @@ class ProductContent extends Model
     protected $table = 'product_content';
 
     protected $fillable = [
-        'url',
         'image',
         'vendor',
         'description',
         'vendorCode',
         'available',
     ];
+
+    protected $primaryKey = 'product_id';
 
     public $timestamps = false;
 

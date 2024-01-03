@@ -23,7 +23,8 @@ class Product extends Model
         'stock' => 'boolean',
     ];
 
-    public function params(){
+    public function params()
+    {
         return $this->belongsToMany(Param::class, 'product_param');
     }
 

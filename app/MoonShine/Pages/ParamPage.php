@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
-use App\Models\Characteristic;
 use App\Models\Param;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Relationships\BelongsTo;
-use MoonShine\Fields\Relationships\HasMany;
+use MoonShine\Fields\Relationships\HasOne;
 use MoonShine\Fields\StackFields;
 use MoonShine\Fields\Switcher;
 use MoonShine\Fields\Text;
@@ -17,7 +16,7 @@ use MoonShine\Resources\ModelResource;
 
 class ParamPage extends ModelResource
 {
-    protected string $title = 'Parameters';
+    protected string $title = 'Параметры';
 
     protected string $subtitle = 'Parameters for products';
 
@@ -25,7 +24,7 @@ class ParamPage extends ModelResource
 
     protected bool $createInModal = true;
 
-    protected bool $editInModal = true;
+    protected bool $editInModal = false;
 
     protected string $column = 'title';
 
@@ -56,6 +55,8 @@ class ParamPage extends ModelResource
                 Switcher::make('Отображение', 'is_active')
                     ->useOnImport()->showOnExport(),
 
+                BelongsTo::make('Группа', 'character', resource: new CharacteristicPage())
+                    ->searchable()
             ]),
         ];
     }
@@ -63,7 +64,7 @@ class ParamPage extends ModelResource
     public function filters(): array
     {
         return [
-            BelongsTo::make('Базовая категория', 'parent', resource: new CategoryPage())->searchable(),
+            BelongsTo::make('Базовая категория', 'parent', resource: new CategoryPage)->searchable(),
         ];
     }
 

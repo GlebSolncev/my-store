@@ -10,10 +10,13 @@ class ProductInside extends Model
     use HasFactory;
 
     protected $table = 'product_inside';
+
     protected $fillable = [
         'wholesaleprice',
         'url',
     ];
+
+    protected $primaryKey = 'product_id';
 
     public $timestamps = false;
 

@@ -20,9 +20,9 @@ class Param extends Model
         'is_active' => 'boolean',
     ];
 
-    public function childs()
+    public function character()
     {
-        return $this->hasMany(Param::class, 'id', 'parent_id');
+        return $this->belongsTo(Characteristic::class, 'characteristic_id');
     }
 
     public function parent()
