@@ -1,0 +1,19 @@
+{
+  "preset": "laravel",
+  "final_internal_class": false,
+  "general_phpdoc_tag_rename": true,
+  "rules": {
+    "general_phpdoc_tag_rename": true,
+    "align_multiline_comment": true,
+    "braces": false,
+    "phpdoc_line_span": {
+      "property": "multi",
+      "const": "multi",
+      "method": "multi"
+    },
+    "new_with_braces": {
+      "anonymous_class": false,
+      "named_class": false
+    }
+  }
+}
