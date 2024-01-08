@@ -20,6 +20,11 @@ class Param extends Model
         'is_active' => 'boolean',
     ];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_param');
+    }
+
     public function character()
     {
         return $this->belongsTo(Characteristic::class, 'characteristic_id');

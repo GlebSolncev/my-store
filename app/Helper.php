@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Http\Resources\CategoryCollection;
+use App\Models\Category;
+
 /**
  * @classname Helper
  * @package App
@@ -19,5 +22,13 @@ class Helper
 
         if ($withCurrency) return sprintf('%s грн.', $price);// ₴
         return $price;
+    }
+
+    public static function getCategories(){
+        $categories = Category::query()->where([
+            ['is_active', '=', true],
+        ])->whereNull('parent_id')->get();
+
+        return CategoryCollection::make($categories)->toArray(request());
     }
 }

@@ -23,6 +23,10 @@ class Product extends Model
         'stock' => 'boolean',
     ];
 
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
     public function params()
     {
         return $this->belongsToMany(Param::class, 'product_param');

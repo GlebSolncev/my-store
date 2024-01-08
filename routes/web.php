@@ -13,20 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login', function () {
-    return view('welcome');
-})->name('login');
 
-Route::get('/profile', function () {
-    return view('welcome');
-})->name('profile');
-
-Route::get('xx', \App\MoonShine\Controllers\PageController::class);
-
-Route::get('/page/{name}', function ($name) {
-    dd($name);
-})->name('page.show');
+Route::group(['as' => 'category.', 'prefix' => 'categories'], function(){
+    Route::get('{category}', [\App\Http\Controllers\CategoryController::class, 'index'])->name('index');
+    Route::get('{category}/filter', [\App\Http\Controllers\CategoryController::class, 'filter'])->name('filter');
+});
